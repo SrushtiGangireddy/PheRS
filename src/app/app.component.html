@@ -1,0 +1,68 @@
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-12" style="font-size:150%;margin:20px 20px 20px 20px;width:100%">
+<label for="diseaseSelect"> Select a disease </label>
+<p-multiSelect [options]="diseases" [(ngModel)]="selectedDiseases" id="diseaseSelect" name="diseaseSelect" autoWidth="false" [style]="{'width':'30%'}"></p-multiSelect>
+</div>
+<div class="col-md-12" style="font-size:150%;margin:20px 20px 20px 20px;">
+<label for="icd9Select">Type in icd9 codes </label>
+<span class="ui-fluid">
+<p-autoComplete [(ngModel)]="codes" [suggestions]="filteredCodesMultiple" (completeMethod)="filterCodesMultiple($event)" [minLength]="1" placeholder="icd9 codes" field="name" [multiple]="true" styleClass="wid100" id="icd9Select" name="icd9Select">
+</p-autoComplete>
+</span> 
+</div>
+<div class="container h-100 d-flex justify-content-center">
+   
+      <p style="font-size:20px">(or)</p>
+    
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12" style="margin:20px 20px 20px 20px;">
+      
+      <p-growl [value]="msgs"></p-growl>
+
+      <h3>Upload the csv file with icd9 codes</h3>
+      <p-fileUpload mode="basic" name="file[]" url="http://127.0.0.1:5000/uploadFile" accept=".csv" (onUpload)="onFileUpload($event)" label="import"></p-fileUpload>
+    </div>
+  </div>
+  </div>
+<div class="col-md-12" style="margin:20px 20px 20px 20px;">
+  <p-button (onClick)="calculateScore()" label="Calculate Score"></p-button>
+  <p-button (onClick)="clearCodes()" label="Clear Search"></p-button>
+</div> 
+</div>
+</div>
+
+<ng-template [ngIf]="scoreCalculated">
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 panel panel-default">
+      <div class="panel-body">
+      <h3>PheRS Score</h3>
+      <p style="font-size:30px;">
+      {{score}}
+    </p>
+    </div>
+  </div>
+    <div class="col-md-6 panel panel-default">
+      <div class="panel-body">
+      <h3>Disease matching phecodes</h3>
+    
+        <div class="row" *ngIf="diseaseMatchingPhecodes?.length > 0">
+          <p style="font-size:30px;text-align:center;">
+      {{diseaseMatchingPhecodes}}
+    </p>
+    </div>
+  </div>
+    <div class="row" *ngIf="diseaseMatchingPhecodes?.length === 0">
+      <p style="font-size:30px;text-align:center;">
+      None
+    </p>
+    </div>
+    
+    </div>
+  </div>
+</div>
+</ng-template>
+
