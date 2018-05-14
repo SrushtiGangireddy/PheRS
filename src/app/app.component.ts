@@ -74,7 +74,7 @@ export class AppComponent{
     }
 
 	getDiseaseCodes(){
-		this.httpClient.get('http://127.0.0.1:5000/diseaseCodes').subscribe(data=>{
+		this.httpClient.get('https://phe-rs.service.vumc.org/diseaseCodes').subscribe(data=>{
 		var dCodes=data as JSON;
 		this.diseaseCodes=dCodes['disease_codes'];
 		for(var i=0;i<dCodes['disease_codes'].length;i++){
@@ -84,7 +84,7 @@ export class AppComponent{
 	}
 
 	getIcd9Codes(){
-		this.httpClient.get('http://127.0.0.1:5000/icd9Codes').subscribe(data=>{
+		this.httpClient.get('https://phe-rs.service.vumc.org/icd9Codes').subscribe(data=>{
 		var icd9s=data as JSON;
 		this.icd9Codes=icd9s['icd9_codes'];
 		})
@@ -97,7 +97,7 @@ export class AppComponent{
 			var c=[];
 			if(!codes){
 				const params=new HttpParams().set('diseaseCode',String(d)).set('codes','');
-				this.httpClient.get('http://127.0.0.1:5000/score',{params}).subscribe(data=>{
+				this.httpClient.get('https://phe-rs.service.vumc.org/score',{params}).subscribe(data=>{
 					var score=data as JSON;
 					this.score=score['score'];
 					this.diseaseMatchingPhecodes=score['diseaseMatchingPhecodes'];
@@ -112,7 +112,7 @@ export class AppComponent{
 				}
 				console.log(c);
 				const params=new HttpParams().set('diseaseCode',String(d)).set('codes',String(c));
-				this.httpClient.get('http://127.0.0.1:5000/score',{params}).subscribe(data=>{
+				this.httpClient.get('https://phe-rs.service.vumc.org/score',{params}).subscribe(data=>{
 					var score=data as JSON;
 					this.score=score['score'];
 					this.diseaseMatchingPhecodes=score['diseaseMatchingPhecodes'];
