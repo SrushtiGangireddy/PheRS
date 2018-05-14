@@ -23,7 +23,7 @@
       <p-growl [value]="msgs"></p-growl>
 
       <h3>Upload the csv file with icd9 codes</h3>
-      <p-fileUpload mode="basic" name="file[]" url="https://phe-rs.app.vumc.org/uploadFile" accept=".csv" (onUpload)="onFileUpload($event)" label="import"></p-fileUpload>
+      <p-fileUpload mode="basic" name="file[]" url="https://phe-rs.service.vumc.org/uploadFile" accept=".csv" (onUpload)="onFileUpload($event)" label="import"></p-fileUpload>
     </div>
   </div>
   </div>
